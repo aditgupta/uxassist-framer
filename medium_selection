@@ -1,0 +1,80 @@
+
+Framer.Device.deviceType = "iphone-5c-white"
+
+
+sketch = mediumselect_screen_framerLayers = Framer.Importer.load "imported/mediumselect_screen_framer"
+
+splash = splash_screen_framerLayers1 = Framer.Importer.load "imported/splash_screen_framer"
+
+splash.Start_button.on Events.Click, ->
+	sketch = mediumselect_screen_framerLayers = Framer.Importer.load 	"imported/mediumselect_screen_framer"
+	
+	# Set initial scale states
+	sketch.Title.y = -200
+	sketch.Mobile.scale = 0.5
+	sketch.Tablet.scale = 0.5
+	sketch.Desktop.scale = 0.5
+	sketch.Web.scale = 0.5
+	sketch.Watch.scale = 0.5
+	sketch.Multi.scale = 0.5
+	
+	sketch.Title.animate
+		properties:
+			y:138
+			curve:"ease-out"
+		
+	sketch.Mobile.states.add
+		stateA:
+			scale: 1
+			
+	sketch.Tablet.states.add
+		stateA:
+			scale: 1
+		
+	sketch.Desktop.states.add
+		stateB:
+			scale: 1
+	
+	sketch.Web.states.add
+		stateA:
+			scale: 1
+
+	sketch.Watch.states.add
+		stateA:
+			scale: 1
+	
+	sketch.Multi.states.add
+		stateA:
+			scale: 1
+			
+	sketch.Web.states.animationOptions = curve: "spring(100,10,0)"
+	
+	sketch.Desktop.states.animationOptions = curve: "spring(100,10,0)" 
+	    		
+	sketch.Tablet.states.animationOptions = curve: "spring(100,10,0)"
+	
+	sketch.Mobile.states.animationOptions = curve: "spring(100, 10, 0)"
+	
+	sketch.Watch.states.animationOptions = curve: "spring(100, 10, 0)"
+	sketch.Multi.states.animationOptions = curve: "spring(100,10,0)"
+    
+
+	sketch.Web.states.next("stateA")
+	sketch.Mobile.states.next("stateA")
+	sketch.Desktop.states.switch("stateB")		
+	sketch.Tablet.states.next("stateA")
+	sketch.Watch.states.next("stateA")
+	sketch.Multi.states.next("stateA")
+
+
+sketch.Mobile.on Events.Click, ->
+	sketch.medium_select.visible = true
+		
+	sketch.medium_select.states.add
+		stateA:
+			scale: 0.75
+			
+	sketch.medium_select.states.animationOptions =  curve: "spring(200, 10, 20)"
+	sketch.medium_select.states.next("stateA")
+	
+	
