@@ -1,0 +1,123 @@
+# --------------------
+# Prototype for UX Assist app
+# Made by Adit Gupta
+# 12th September 2015
+# -------------------
+
+# Issues
+# 1. Refactor code. Violating DRY and is runnning into BBOM
+# 2. Icons not coming for MVP details screen
+
+
+Framer.Device.deviceType = "iphone-5c-white"
+
+sketch = product_type_screen_framerLayers = Framer.Importer.load "imported/product_type_screen_framer"
+
+splash_screen = Framer.Importer.load "imported/splash_screen_framer"
+
+
+# Setting properties for hidden layers so that they are rendered properly on runtime
+sketch.MVP_big.width = 200
+sketch.MVP_details.width = 427.0
+sketch.MVP_details.height = 601.0
+
+# Initiating the first screen		
+splash_screen.Start_button.on Events.Click, ->
+	sketch = product_type_screen_framerLayers = Framer.Importer.load 	"imported/product_type_screen_framer"
+	
+# Setting initial position of layers before they are loaded on the screen	
+	sketch.Title.y = -200
+	sketch.OVP.x = -200
+	sketch.MVP.x = -300
+	sketch.Clientbased.x = -400
+	sketch.OVP_details.x = 500
+	sketch.Datadriven.x = -500
+	sketch.MVP_details.x = 500
+	
+	sketch.Title.animate
+		properties:
+			y:113
+			curve:"ease-in"
+	
+	sketch.OVP.animate
+		properties:
+			x:0
+			curve: "ease-in"		
+			
+	 sketch.OVP_details.animate
+	 	properties:
+	 		x:282
+	 		curve:"ease-out"
+						
+	 sketch.MVP.animate
+	 	properties:
+	 		x:0
+	 		curve: "ease-in"
+	 
+	 sketch.Clientbased.animate
+	 	properties:
+	 		x:0
+	 		curve:"ease-in"
+	 		
+	 sketch.Datadriven.animate
+	 	properties:
+	 		x:0
+	 		curve:"ease-in"	
+	 		
+
+# Click event for MVP and OVP layers	 		
+sketch.MVP.on Events.Click, ->
+	sketch.OVP.width = 173
+	sketch.MVP_big.visible = true
+	sketch.OVP_details.animate
+	 	properties:
+	 		x:600
+	 		curve:"ease-out"
+	sketch.MVP_details.animate
+	 	properties:
+	 		x:181
+	 		curve:"ease-out"
+	sketch.MVP_details.visible = true
+	sketch.selected_check.visible = false
+	sketch.Selected.visible = false
+	 		
+sketch.OVP.on Events.Click, ->
+	sketch.OVP.width = 200
+	sketch.MVP_big.visible = false
+	sketch.OVP_details.animate
+	 	properties:
+	 		x:281
+	 		curve:"ease-out"
+	sketch.MVP_details.animate
+	 	properties:
+	 		x:600
+	 		curve:"ease-out"
+	sketch.MVP_details.visible = true	 		
+	
+
+selectButton = sketch.OVP_details.Select_button
+						
+sketch.OVP_details.on Events.Click, ->
+	sketch.Select_button.visible = false
+	sketch.selected_check.visible = true		
+	sketch.Selected.animate
+		properties:
+			x:330
+			curve:"ease-out"
+	sketch.Selected.visible = true
+			
+	sketch.selected_check.states.add
+		stateA:
+			scale:0.75
+			visible:true
+			time:2000
+			
+	sketch.selected_check.states.animationOptions =  curve: "spring(200, 10, 20)"
+	sketch.selected_check.states.next("stateA")
+	
+	sketch.select_band.animate
+		properties:
+			x:182
+			curve:"ease-out"
+	sketch.select_band.visible = true		
+				
